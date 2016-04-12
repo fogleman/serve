@@ -8,7 +8,7 @@ Simple Go file server for command line development use, a la Python's SimpleHTTP
 
 ### Run the Server
 
-By default, serves the current working directory on port 8000.
+By default, serves the current working directory on port 8000. If `$GOPATH/bin` is on your `PATH`, you can run it anywhere.
 
     $ serve
 
