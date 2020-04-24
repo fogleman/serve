@@ -16,7 +16,8 @@ By default, serves the current working directory on port 8000. If `$GOPATH/bin` 
 
 ### Command-line Arguments
 
-| Flag | Default | Description |
-| --- | --- | --- |
-| -port | `8000` | port to listen on |
-| -dir | `"."` | directory to serve |
+| Flag  | Default | Description                                                  |
+| ----- | ------- | ------------------------------------------------------------ |
+| -port | `8000`  | port to listen on                                            |
+| -dir  | `"."`   | directory to serve                                           |
+| -cors | `false` | `true` to enable CORS (via `Access-Control-Allow-Origin: *`) |

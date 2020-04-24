@@ -9,10 +9,12 @@ import (
 
 var Port int
 var Dir string
+var UseCors bool
 
 func init() {
 	flag.IntVar(&Port, "port", 8000, "port to listen on")
 	flag.StringVar(&Dir, "dir", ".", "directory to serve")
+	flag.BoolVar(&UseCors, "cors", false, "Set true to enable 'Access-Control-Allow-Origin: *' on all requests")
 }
 
 // ResponseWriter wraps http.ResponseWriter to capture the HTTP status code
@@ -23,6 +25,11 @@ type ResponseWriter struct {
 
 func (w *ResponseWriter) WriteHeader(statusCode int) {
 	w.StatusCode = statusCode
+
+	if UseCors {
+		w.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
+	}
+
 	w.ResponseWriter.WriteHeader(statusCode)
 }
 
