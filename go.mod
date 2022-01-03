@@ -1,3 +1,3 @@
-module github.com/fogleman/serve
+module github.com/fancycade/serve
 
 go 1.17
