@@ -4,7 +4,7 @@ Simple Go file server for command line development use, a la Python's SimpleHTTP
 
 ### Installation
 
-    go get -u github.com/fogleman/serve
+    go get -u github.com/fancycade/serve
 
 ### Run the Server
 
