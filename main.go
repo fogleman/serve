@@ -26,6 +26,15 @@ func (w *ResponseWriter) WriteHeader(statusCode int) {
 	w.ResponseWriter.WriteHeader(statusCode)
 }
 
+func CacheControlMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate")
+		w.Header().Set("Pragma", "no-cache")
+		w.Header().Set("Expires", "0")
+		next.ServeHTTP(w, r)
+	})
+}
+
 // Handler wraps http.Handler to log served files
 type Handler struct {
 	http.Handler
@@ -39,7 +48,9 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	flag.Parse()
-	handler := &Handler{http.FileServer(http.Dir(Dir))}
+	fileServer := http.FileServer(http.Dir(Dir))
+	cacheControlledHandler := CacheControlMiddleware(fileServer)
+	handler := &Handler{cacheControlledHandler}
 	http.Handle("/", handler)
 	addr := fmt.Sprintf(":%d", Port)
 	log.Printf("Listening on %s\n", addr)
